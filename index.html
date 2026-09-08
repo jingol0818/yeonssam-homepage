@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 
+     연쌤 AI 연구소 · 연하의서재  |  강사 홈페이지
+     ✏️  고치는 곳은 딱 세 군데입니다.
+        1) 아래 title, meta description (검색 결과에 나오는 문구)
+        2) 본문 안의  ✏️  표시가 붙은 주석
+        3) assets/ 폴더의 사진 파일 (같은 이름으로 덮어쓰면 그대로 바뀝니다)
+     이 파일 하나만 있으면 사이트가 동작합니다. 설치할 것 없습니다.
+ -->
+
+<title>연쌤 AI 연구소 | AI·디지털 교육 강사 연하의서재</title>
+<meta name="description" content="공공기관·지자체·복지관 AI 교육 전문 강사. 생성형 AI 실전, 시니어 디지털, AI 보도자료 작성. 출강 기관 50곳 이상, 저서 3권. 강의 문의 환영합니다.">
+<meta name="author" content="연쌤 AI 연구소">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="연쌤 AI 연구소 | AI·디지털 교육 강사">
+<meta property="og:description" content="AI는 어렵지 않습니다. 공공기관·시니어·직장인 대상 AI 교육 전문 강사입니다.">
+<meta property="og:image" content="assets/avatar/yeonssam-wave.png">
+<meta property="og:locale" content="ko_KR">
+
+<link rel="icon" href="assets/avatar/yeonssam-wave.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+<!-- JS가 동작할 때만 등장 효과를 켭니다.
+     (JS가 막히면 모든 내용이 처음부터 그냥 보입니다. 빈 화면이 되지 않습니다) -->
+<script>document.documentElement.className = "js";</script>
+
+<style>
+/* 색 
+   녹색 한 가지를 8단계로 펼쳐 씁니다.
+   밝은 단계(05·10·20)를 넓게 깔고, 짙은 단계(80)는 버튼·강조에만.
+   ✏️ 색을 바꾸고 싶으면 여기 8줄만 고치면 사이트 전체가 바뀝니다. */
+:root{
+  --g05:#F1F7F3;
+  --g10:#E2EFE7;
+  --g20:#C9E0D2;
+  --g40:#8FBBA1;
+  --g60:#4E8E6D;
+  --g80:#1F5C46;
+  --g95:#14342A;
+
+  --white:#FFFFFF;
+  --ink:#1F2A24;
+  --ink-2:#42544B;
+  --ink-3:#68796F;
+  --line:#DCE8E1;
+  --warm:#A96F45;
+  --warm-bg:#F7EFE7;
+
+  --r-card:18px;
+  --shadow-2:0 2px 6px rgba(20,52,42,.05), 0 18px 40px -24px rgba(20,52,42,.42);
+  --ease:cubic-bezier(.22,.72,.28,1);
+}
+
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth; scroll-padding-top:84px}
+
+body{
+  background:var(--white);
+  color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
+  font-size:18px;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+  word-break:keep-all;
+  overflow-x:hidden;
+}
+
+h1,h2,h3{font-family:"Gowun Batang",serif; color:var(--g95); line-height:1.4; text-wrap:balance}
+a{color:var(--g80); text-decoration:none}
+img{max-width:100%; display:block}
+:focus-visible{outline:3px solid var(--g80); outline-offset:3px; border-radius:6px}
+
+.wrap{max-width:1120px; margin:0 auto; padding:0 24px}
+
+/* 등장 효과 
+   화면에 들어오면 .in 이 붙어 나타납니다.
+   관찰이 실패해도 3초 뒤 전부 보이게 하는 안전장치가 아래 JS에 있습니다. */
+.js [data-reveal]{
+  opacity:0; transform:translateY(20px);
+  transition:opacity .75s var(--ease), transform .75s var(--ease);
+}
+.js [data-reveal].in{opacity:1; transform:none}
+.js [data-reveal][data-delay="1"]{transition-delay:.08s}
+.js [data-reveal][data-delay="2"]{transition-delay:.16s}
+.js [data-reveal][data-delay="3"]{transition-delay:.24s}
+.js [data-reveal][data-delay="4"]{transition-delay:.32s}
+
+/* 섹션 공통 */
+.sec{padding:96px 0}
+.sec-tint{background:var(--g05)}
+.sec-head{margin-bottom:44px; display:flex; flex-direction:column; gap:12px}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:12px;
+  font-size:13px; font-weight:600; letter-spacing:.16em;
+  color:var(--g80); text-transform:uppercase;
+  font-family:"Pretendard Variable",Pretendard,sans-serif;
+}
+.eyebrow::before{content:""; width:26px; height:2px; background:var(--g60); border-radius:2px}
+.sec h2{font-size:clamp(27px,3.6vw,36px); font-weight:700; letter-spacing:-.01em}
+.sec-head p{color:var(--ink-3); font-size:16.5px; max-width:62ch}
+
+/* 상단 고정 바 */
+.nav{
+  position:sticky; top:0; z-index:60;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.nav.stuck{border-bottom-color:var(--line); box-shadow:0 6px 24px -18px rgba(20,52,42,.5)}
+.progress{position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--g60); transition:width .1s linear}
+.nav-in{max-width:1120px; margin:0 auto; padding:13px 24px; display:flex; align-items:center; gap:20px}
+.brand{display:flex; align-items:center; gap:11px; margin-right:auto}
+.brand img{width:40px; height:40px; border-radius:50%; background:var(--g10); padding:2px; transition:transform .35s var(--ease)}
+.brand:hover img{transform:rotate(-8deg) scale(1.06)}
+.brand b{font-family:"Gowun Batang",serif; font-size:19px; color:var(--g95); font-weight:700; display:block; line-height:1.25}
+.brand small{font-size:12px; color:var(--ink-3); letter-spacing:.02em}
+.nav-links{display:flex; gap:26px; align-items:center}
+.nav-links a{
+  position:relative; color:var(--ink-2); font-size:16px; font-weight:500;
+  padding:4px 0; transition:color .25s var(--ease);
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px;
+  background:var(--g60); border-radius:2px;
+  transform:scaleX(0); transform-origin:left; transition:transform .32s var(--ease);
+}
+.nav-links a:hover{color:var(--g80)}
+.nav-links a:hover::after, .nav-links a.active::after{transform:scaleX(1)}
+.nav-links a.active{color:var(--g80); font-weight:600}
+@media(max-width:900px){ .nav-links{display:none} }
+
+/* 버튼 */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  min-height:54px; padding:0 28px; border-radius:999px;
+  font-family:"Pretendard Variable",Pretendard,sans-serif;
+  font-size:17px; font-weight:600; white-space:nowrap;
+  transition:transform .2s var(--ease), box-shadow .3s var(--ease), background .25s var(--ease), color .25s var(--ease);
+}
+.btn .arw{transition:transform .3s var(--ease)}
+.btn:hover .arw{transform:translateX(4px)}
+.btn-fill{background:var(--g80); color:#fff; box-shadow:0 4px 14px -6px rgba(31,92,70,.7)}
+.btn-fill:hover{background:#174936; transform:translateY(-2px); box-shadow:0 12px 26px -10px rgba(31,92,70,.62)}
+.btn-fill:active{transform:translateY(0)}
+.btn-line{color:var(--g80); box-shadow:inset 0 0 0 2px var(--g80)}
+.btn-line:hover{background:var(--g80); color:#fff; transform:translateY(-2px)}
+.btn-sm{min-height:48px; padding:0 22px; font-size:15.5px}
+
+/* 히어로 */
+.hero{position:relative; background:var(--g10); padding:96px 0 90px; overflow:hidden}
+/* 잉크가 종이에 번지는 캔버스. 글자 뒤에 깔립니다 */
+#hero-canvas{
+  position:absolute; inset:0; pointer-events:none; z-index:0; opacity:0;
+  transition:opacity 2.2s ease;
+  -webkit-mask-image:radial-gradient(ellipse 74% 96% at 68% 50%, #000 26%, transparent 82%);
+  mask-image:radial-gradient(ellipse 74% 96% at 68% 50%, #000 26%, transparent 82%);
+}
+#hero-canvas.ready{opacity:.9}
+.hero-in{position:relative; z-index:1; display:grid; grid-template-columns:1.2fr .8fr; gap:48px; align-items:center}
+@media(max-width:900px){ .hero-in{grid-template-columns:1fr; gap:34px} }
+.hero .kicker{
+  font-size:14px; font-weight:600; letter-spacing:.16em; color:var(--g80);
+  font-family:"Pretendard Variable",Pretendard,sans-serif; margin-bottom:18px;
+  display:inline-flex; align-items:center; gap:11px;
+}
+.hero .kicker::before{content:""; width:26px; height:2px; background:var(--g60); border-radius:2px}
+.hero h1{font-size:clamp(38px,5.8vw,58px); font-weight:700; margin-bottom:22px; letter-spacing:-.015em}
+.hero p.lead{font-size:19px; color:var(--ink-2); max-width:34ch; margin-bottom:34px}
+.hero-btns{display:flex; gap:12px; flex-wrap:wrap}
+.hero-art{display:flex; justify-content:center; position:relative}
+.hero-art img{
+  width:min(240px,70%);
+  filter:drop-shadow(0 22px 30px rgba(20,52,42,.22));
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* 첫 화면 요소는 로드되자마자 순서대로 나타납니다 */
+.js .hero-in > div > *{animation:riseIn .85s var(--ease) both}
+.js .hero-in > div > *:nth-child(1){animation-delay:.05s}
+.js .hero-in > div > *:nth-child(2){animation-delay:.14s}
+.js .hero-in > div > *:nth-child(3){animation-delay:.23s}
+.js .hero-in > div > *:nth-child(4){animation-delay:.32s}
+@keyframes riseIn{from{opacity:0; transform:translateY(22px)}to{opacity:1; transform:none}}
+
+/* 숫자 */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:-46px; position:relative; z-index:2}
+@media(max-width:780px){ .stats{grid-template-columns:repeat(2,1fr)} }
+.stat{
+  background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
+  padding:28px 16px; text-align:center; box-shadow:var(--shadow-2);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.stat:hover{transform:translateY(-5px); box-shadow:0 2px 6px rgba(20,52,42,.05), 0 26px 50px -26px rgba(20,52,42,.5)}
+.stat b{
+  display:block; font-family:"Gowun Batang",serif; font-weight:700;
+  font-size:42px; color:var(--g95); line-height:1.1; font-variant-numeric:tabular-nums;
+}
+.stat > span{display:block; font-size:15px; color:var(--ink-3); margin-top:8px}
+.stat b .unit{font-size:25px; font-weight:700}
+/* 아직 숫자를 안 정한 칸. 강사님이 직접 채우는 자리 */
+.stat.todo{border:2px dashed var(--g40); background:var(--g05); box-shadow:none}
+.stat.todo b{color:var(--g60)}
+
+/* 신뢰 배지 띠 */
+.badges{background:var(--g20); padding:20px 0; margin-top:64px}
+.badges ul{
+  display:flex; flex-wrap:wrap; gap:12px 30px; justify-content:center;
+  list-style:none; font-size:15.5px; color:var(--g95); font-weight:500;
+}
+.badges li{display:flex; align-items:center; gap:9px}
+.badges li::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--g60)}
+
+/* 카드 그리드 */
+.grid{display:grid; gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+@media(max-width:1000px){ .g3,.g5{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:640px){ .g2,.g3,.g5{grid-template-columns:1fr} }
+
+.card{
+  position:relative; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r-card); padding:30px 26px 28px;
+  display:flex; flex-direction:column; gap:10px; overflow:hidden;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+.card::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--g60); transform:scaleX(0); transform-origin:left;
+  transition:transform .45s var(--ease);
+}
+.card:hover{transform:translateY(-4px); border-color:var(--g40); box-shadow:var(--shadow-2)}
+.card:hover::before{transform:scaleX(1)}
+.card h3{font-size:19.5px; font-weight:700}
+.card p{font-size:16px; color:var(--ink-3); line-height:1.75}
+.card .num{font-family:"Pretendard Variable",Pretendard,sans-serif; font-size:13px; font-weight:600; letter-spacing:.1em; color:var(--g60)}
+
+.chip-card{padding:22px 18px; text-align:center}
+.chip-card h3{font-size:17px}
+
+/* 블로그 최신 글 */
+.posts{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+@media(max-width:920px){ .posts{grid-template-columns:1fr} }
+.post{
+  background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
+  overflow:hidden; display:flex; flex-direction:column;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+.post:hover{transform:translateY(-6px); border-color:var(--g40); box-shadow:var(--shadow-2)}
+.post .thumb{display:block; overflow:hidden; aspect-ratio:16/9; background:var(--g10)}
+.post .thumb img{width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease)}
+.post:hover .thumb img{transform:scale(1.06)}
+.post-body{padding:22px 24px 26px; display:flex; flex-direction:column; gap:9px; flex:1}
+.post time{font-size:14px; color:var(--ink-3); font-variant-numeric:tabular-nums; letter-spacing:.02em}
+.post h3{font-size:18px; font-weight:700; line-height:1.55}
+.post .more{margin-top:auto; padding-top:14px; font-size:15px; font-weight:600; color:var(--g80); display:inline-flex; gap:7px}
+.post:hover .more .arw{transform:translateX(5px)}
+.post .arw{transition:transform .3s var(--ease)}
+
+/* 출강 기관 흐르는 띠 
+   기관 이름이 좌우로 천천히 흘러갑니다. 마우스를 올리면 멈춥니다. */
+.marquee{
+  position:relative; overflow:hidden; padding:7px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.mq-track{display:flex; gap:12px; width:max-content; will-change:transform}
+.mq-a{animation:mqL 46s linear infinite}
+.mq-b{animation:mqR 52s linear infinite}
+.marquee:hover .mq-track, .marquee:focus-within .mq-track{animation-play-state:paused}
+@keyframes mqL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mqR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.org{
+  flex:none; background:var(--white); border:1px solid var(--line);
+  border-radius:999px; padding:12px 22px; font-size:16.5px; color:var(--ink-2);
+  display:flex; align-items:center; gap:10px; white-space:nowrap;
+  transition:border-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+}
+.org::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--g40); flex:none; transition:background .3s var(--ease)}
+.org:hover{border-color:var(--g60); color:var(--g95); transform:translateY(-2px)}
+.org:hover::before{background:var(--g60)}
+
+/* 사진 */
+.photos{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px}
+@media(max-width:840px){ .photos{grid-template-columns:1fr} }
+figure{
+  background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r-card); overflow:hidden;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+figure:hover{transform:translateY(-4px); box-shadow:var(--shadow-2)}
+figure .ph{display:block; overflow:hidden; aspect-ratio:4/3}
+figure .ph img{width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease)}
+figure:hover .ph img{transform:scale(1.07)}
+figcaption{padding:16px 20px 20px; font-size:15px; color:var(--ink-3); line-height:1.6}
+figcaption b{display:block; color:var(--ink); font-size:16px; font-weight:600; margin-bottom:3px}
+
+/* 저서 */
+.book{
+  position:relative; background:var(--white); border:1px solid var(--line);
+  border-left:5px solid var(--warm); border-radius:6px var(--r-card) var(--r-card) 6px;
+  padding:28px 26px; display:flex; flex-direction:column; gap:11px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.book:hover{transform:translateY(-4px) rotate(-.4deg); box-shadow:var(--shadow-2)}
+.book .tag{align-self:flex-start; background:var(--warm-bg); color:var(--warm); font-size:13px; font-weight:600; padding:5px 14px; border-radius:999px}
+.book h3{font-size:20.5px; font-weight:700}
+.book p{font-size:16px; color:var(--ink-3)}
+
+/* 타임라인 */
+.timeline{list-style:none; border-left:2px solid var(--g20); padding-left:28px; display:flex; flex-direction:column; gap:24px}
+.timeline li{position:relative}
+.timeline li::before{
+  content:""; position:absolute; left:-35px; top:11px; width:12px; height:12px;
+  border-radius:50%; background:var(--white); border:3px solid var(--g60);
+  transition:transform .3s var(--ease), background .3s var(--ease);
+}
+.timeline li:hover::before{transform:scale(1.35); background:var(--g60)}
+.timeline .year{font-family:"Pretendard Variable",Pretendard,sans-serif; font-size:14px; font-weight:700; color:var(--g80); letter-spacing:.06em}
+.timeline p{font-size:17px; color:var(--ink)}
+
+.certs{display:flex; flex-wrap:wrap; gap:11px; margin-top:8px}
+.cert{
+  background:var(--g10); color:var(--g95); border-radius:999px;
+  padding:11px 20px; font-size:16px; font-weight:500;
+  transition:background .3s var(--ease), transform .3s var(--ease);
+}
+.cert:hover{background:var(--g20); transform:translateY(-2px)}
+
+/* 철학 인용 
+   짙은 녹색을 쓰는 유일한 블록입니다. */
+.quote{position:relative; background:var(--g80); color:#fff; padding:96px 0; overflow:hidden}
+.quote::before{
+  content:"\201C"; position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+  font-family:"Gowun Batang",serif; font-size:230px; color:rgba(255,255,255,.07); line-height:1;
+}
+.quote blockquote{
+  position:relative; font-family:"Gowun Batang",serif; font-size:clamp(24px,3.4vw,34px);
+  line-height:1.7; text-align:center; max-width:24ch; margin:0 auto; font-weight:700;
+}
+.quote cite{display:block; text-align:center; margin-top:24px; font-style:normal; font-size:15px; color:var(--g20); letter-spacing:.08em}
+
+/* 문의 */
+.contact-box{
+  background:var(--g10); border-radius:28px; padding:60px 40px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:19px;
+}
+.contact-box img{width:112px; margin-bottom:4px; animation:float 6s ease-in-out infinite}
+.contact-box h2{font-size:clamp(26px,3.6vw,34px); font-weight:700}
+.contact-box p{color:var(--ink-2); font-size:17px; max-width:46ch}
+.contact-btns{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px}
+.mailline{font-size:16px; color:var(--ink-3); margin-top:4px; font-family:"Pretendard Variable",Pretendard,sans-serif}
+.mailline a{font-weight:600; border-bottom:1px solid var(--g40); transition:border-color .25s var(--ease)}
+.mailline a:hover{border-color:var(--g80)}
+
+/* 푸터 */
+footer{background:var(--g95); color:#B9CFC4; padding:52px 0 58px; font-size:15px}
+footer .f-in{display:flex; flex-wrap:wrap; gap:14px 32px; align-items:baseline}
+footer b{color:#fff; font-family:"Gowun Batang",serif; font-size:19px; font-weight:700}
+footer a{color:#9FE3C4; transition:color .25s var(--ease)}
+footer a:hover{color:#fff}
+footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
+
+/* 움직임 최소화 설정을 켠 분을 위해 */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important; transition:none !important}
+  .js [data-reveal]{opacity:1 !important; transform:none !important}
+  .js .hero-in > div > *{opacity:1 !important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 상단 바 -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <img src="assets/avatar/yeonssam-wave.png" alt="">
+      <span><b>연쌤 AI 연구소</b><small>연하의서재</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#blog">최신 글</a>
+      <a href="#field">강의 분야</a>
+      <a href="#history">강의 이력</a>
+      <a href="#books">저서</a>
+      <a href="#award">자격·수상</a>
+    </nav>
+    <!-- ✏️ 이메일 주소를 바꾸려면 mailto: 뒤의 주소를 고치세요 (파일 안 5곳) -->
+    <a class="btn btn-fill btn-sm" href="mailto:digitalyeonssam@naver.com?subject=%5B%EA%B0%95%EC%9D%98%20%EB%AC%B8%EC%9D%98%5D%20%EA%B8%B0%EA%B4%80%EB%AA%85%EC%9D%84%20%EC%A0%81%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94">강의 문의</a>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<!-- 히어로 -->
+<section class="hero" id="top">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <div>
+      <p class="kicker">AI · 디지털 교육 강사</p>
+      <!-- ✏️ 가장 하고 싶은 한마디를 여기에 -->
+      <h1>AI는<br>어렵지 않습니다</h1>
+      <p class="lead">
+        누구나 쉽고 재미있게 배울 수 있도록,<br>
+        인문학적 감성과 AI 기술을 함께 담습니다.
+      </p>
+      <div class="hero-btns">
+        <a class="btn btn-fill" href="mailto:digitalyeonssam@naver.com?subject=%5B%EA%B0%95%EC%9D%98%20%EB%AC%B8%EC%9D%98%5D%20%EA%B8%B0%EA%B4%80%EB%AA%85%EC%9D%84%20%EC%A0%81%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20%EC%97%B0%EC%8C%A4%20AI%20%EC%97%B0%EA%B5%AC%EC%86%8C%20%EA%B0%95%EC%9D%98%20%EB%AC%B8%EC%9D%98%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4.%0A%0A%E2%96%A0%20%EA%B8%B0%EA%B4%80/%EB%8B%A8%EC%B2%B4%EB%AA%85%20%3A%0A%E2%96%A0%20%EB%8B%B4%EB%8B%B9%EC%9E%90%20%EC%84%B1%ED%95%A8%20%3A%0A%E2%96%A0%20%EC%97%B0%EB%9D%BD%EC%B2%98%20%3A%0A%E2%96%A0%20%ED%9D%AC%EB%A7%9D%20%EC%9D%BC%EC%A0%95%20%3A%202026%EB%85%84%20%20%20%EC%9B%94%20%20%20%EC%9D%BC%20%28%20%20%20%EC%9A%94%EC%9D%BC%29%20%20%20%EC%8B%9C%20~%20%20%20%EC%8B%9C%0A%E2%96%A0%20%EA%B5%90%EC%9C%A1%20%EB%8C%80%EC%83%81%20%3A%20%28%EC%98%88%3A%20%EC%8B%9C%EB%8B%88%EC%96%B4%20/%20%EA%B3%B5%EC%A7%81%EC%9E%90%20/%20%EC%A7%81%EC%9E%A5%EC%9D%B8%20/%20%ED%95%99%EC%83%9D%29%0A%E2%96%A0%20%EC%98%88%EC%83%81%20%EC%9D%B8%EC%9B%90%20%3A%20%20%20%EB%AA%85%0A%E2%96%A0%20%ED%9D%AC%EB%A7%9D%20%EC%A3%BC%EC%A0%9C%20%3A%20%28%EC%98%88%3A%20%EC%83%9D%EC%84%B1%ED%98%95%20AI%20%EC%8B%A4%EC%A0%84%20/%20%EC%8B%9C%EB%8B%88%EC%96%B4%20%EB%94%94%EC%A7%80%ED%84%B8%20/%20AI%20%EB%B3%B4%EB%8F%84%EC%9E%90%EB%A3%8C%20%EC%9E%91%EC%84%B1%29%0A%E2%96%A0%20%EC%9E%A5%EC%86%8C%20%EB%B0%8F%20%EA%B8%B0%EC%9E%90%EC%9E%AC%20%3A%20%28%EC%98%88%3A%20%EA%B0%95%EC%9D%98%EC%8B%A4%2C%20%EB%B9%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%84%B0%2C%20%EA%B0%9C%EC%9D%B8%20%EB%85%B8%ED%8A%B8%EB%B6%81%20%EC%97%AC%EB%B6%80%29%0A%E2%96%A0%20%EA%B8%B0%ED%83%80%20%EC%9A%94%EC%B2%AD%EC%82%AC%ED%95%AD%20%3A%0A%0A%EA%B0%90%EC%82%AC%ED%95%A9%EB%8B%88%EB%8B%A4.">강의 문의하기 <span class="arw">→</span></a>
+        <a class="btn btn-line" href="https://blog.naver.com/yeonailab" target="_blank" rel="noopener">블로그 보기</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="assets/avatar/yeonssam-wave.png" alt="연쌤 캐릭터가 손을 흔들며 인사하는 그림">
+    </div>
+  </div>
+</section>
+
+<!-- 숫자 (스크롤하면 0부터 올라갑니다) -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stat" data-reveal><b><span class="count" data-to="50">50</span><span class="unit">+</span></b><span>출강 기관</span></div>
+    <!-- ✏️ 실제 강의 횟수를 세어 data-to 와 글자를 바꾸고, class 에서 todo 를 지우세요 -->
+    <div class="stat todo" data-reveal data-delay="1"><b><span>000</span><span class="unit">회</span></b><span>누적 강의 횟수</span></div>
+    <div class="stat" data-reveal data-delay="2"><b><span class="count" data-to="3">3</span><span class="unit">권</span></b><span>출간 저서</span></div>
+    <div class="stat" data-reveal data-delay="3"><b><span class="count" data-to="10">10</span><span class="unit">+</span></b><span>AI 자격 · 수료</span></div>
+  </div>
+</div>
+
+<!-- 신뢰 배지 -->
+<div class="badges">
+  <div class="wrap">
+    <ul>
+      <li>여성기업 인증</li>
+      <li>고양시 여성창업지원센터 입주기업</li>
+      <li>한국강사교육협회 이사</li>
+      <li>미래교육아카데미 전임강사</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 블로그 최신 글 -->
+<section class="sec" id="blog">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">연쌤 AI 연구소 블로그</span>
+      <h2>바뀌는 것을 따라갑니다</h2>
+      <p>AI 도구와 정책은 매주 바뀝니다. 현장에서 직접 확인한 것만 정리해 올립니다.</p>
+    </div>
+
+    <!-- ✏️ 새 글을 올리면 이 세 칸의 제목·날짜·주소·사진만 바꿔주세요 -->
+    <div class="posts">
+      <a class="post" data-reveal href="https://blog.naver.com/yeonailab/224394798729" target="_blank" rel="noopener">
+        <span class="thumb"><img src="assets/blog/post-terms.jpg" alt=""></span>
+        <span class="post-body">
+          <time datetime="2026-08-30">2026. 08. 30.</time>
+          <h3>클로드 쓰다가 자꾸 혼동되는 용어들, 여기 한 번에 정리합니다</h3>
+          <span class="more">글 읽기 <span class="arw">→</span></span>
+        </span>
+      </a>
+      <a class="post" data-reveal data-delay="1" href="https://blog.naver.com/yeonailab/224394289654" target="_blank" rel="noopener">
+        <span class="thumb"><img src="assets/blog/post-deepl.jpg" alt=""></span>
+        <span class="post-body">
+          <time datetime="2026-08-29">2026. 08. 29.</time>
+          <h3>DeepL에 가입했는데 API 키가 없어요, 무료 구독부터 키 확인까지</h3>
+          <span class="more">글 읽기 <span class="arw">→</span></span>
+        </span>
+      </a>
+      <a class="post" data-reveal data-delay="2" href="https://blog.naver.com/yeonailab/224393359239" target="_blank" rel="noopener">
+        <span class="thumb"><img src="assets/blog/post-claude.jpg" alt=""></span>
+        <span class="post-body">
+          <time datetime="2026-08-28">2026. 08. 28.</time>
+          <h3>클로드 AI, 채팅·코워크·코드·디자인 뭐가 다른가요?</h3>
+          <span class="more">글 읽기 <span class="arw">→</span></span>
+        </span>
+      </a>
+    </div>
+
+    <div style="margin-top:32px" data-reveal>
+      <a class="btn btn-line" href="https://blog.naver.com/yeonailab" target="_blank" rel="noopener">블로그에서 전체 글 보기 <span class="arw">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 강의 분야 -->
+<section class="sec sec-tint" id="field">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">강의 분야</span>
+      <h2>이런 교육을 합니다</h2>
+      <p>기관의 목적과 대상에 맞춰 커리큘럼을 새로 짜서 진행합니다.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card" data-reveal><span class="num">생성형 AI</span><h3>ChatGPT · Gemini · Claude 실습</h3><p>업무와 일상에 바로 적용하는 실전 교육. 따라 하면 그 자리에서 결과물이 나옵니다.</p></div>
+      <div class="card" data-reveal data-delay="1"><span class="num">시니어</span><h3>시니어 인지건강 × AI</h3><p>어르신 눈높이에 맞춘 디지털·AI 활용 교육. 스마트폰 안전 사용까지 함께 다룹니다.</p></div>
+      <div class="card" data-reveal data-delay="2"><span class="num">공공기관</span><h3>지자체 맞춤 AI 교육</h3><p>AI 보도자료 작성, 업무 자동화 등 기관 업무에 맞춘 커리큘럼을 설계합니다.</p></div>
+      <div class="card" data-reveal><span class="num">메타버스</span><h3>메타버스 융합 교육</h3><p>AI와 메타버스를 결합한 미래교육 콘텐츠를 직접 만들어 봅니다.</p></div>
+      <div class="card" data-reveal data-delay="1"><span class="num">인문학</span><h3>AI 독서 · 창작 클래스</h3><p>AI를 활용한 글쓰기와 독서. 기술이 아니라 표현을 배우는 수업입니다.</p></div>
+      <div class="card" data-reveal data-delay="2"><span class="num">강사 양성</span><h3>디지털 튜터 · 시니어 리더 양성</h3><p>배운 것을 다른 사람에게 다시 알려줄 수 있게. 가르치는 사람을 기르는 과정입니다.</p></div>
+    </div>
+
+    <div class="sec-head" style="margin-top:64px; margin-bottom:24px" data-reveal>
+      <h2 style="font-size:25px">강의 대상</h2>
+    </div>
+    <div class="grid g5">
+      <div class="card chip-card" data-reveal><h3>공공기관 · 지자체</h3></div>
+      <div class="card chip-card" data-reveal data-delay="1"><h3>시니어 · 어르신</h3></div>
+      <div class="card chip-card" data-reveal data-delay="2"><h3>직장인 · 일반인</h3></div>
+      <div class="card chip-card" data-reveal data-delay="3"><h3>학교 · 교육기관</h3></div>
+      <div class="card chip-card" data-reveal data-delay="4"><h3>복지관 · 단체</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- 강의 이력 -->
+<section class="sec" id="history">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">강의 이력</span>
+      <h2>다양한 기관에서 검증된 강사입니다</h2>
+      <p>시청·교육청·복지관·기업 연수원까지, 대상이 달라도 눈높이를 맞춥니다. 마우스를 올리면 멈춥니다.</p>
+    </div>
+  </div>
+
+  <!-- ✏️ 새로 출강한 기관은 아래 띠 안에 <span class="org">기관 이름</span> 을 추가하세요.
+       ※ 같은 목록이 두 번 반복되어 있습니다. 끊김 없이 흐르게 하려면 두 곳 모두에 추가해야 합니다. -->
+  <div class="marquee" data-reveal>
+    <div class="mq-track mq-a">
+      <span class="org">고양특례시청</span><span class="org">경기도교육청 남부연수원</span><span class="org">고양시장애인종합복지관</span><span class="org">광명시립하안노인종합복지관</span><span class="org">한국전력공사 인재개발원</span><span class="org">한국건설기술연구원</span><span class="org">서울아스트라자산운용</span><span class="org">양천구청</span><span class="org">서초구청</span><span class="org">여주시 농업기술센터</span><span class="org">화성시 농업기술센터</span>
+      <span class="org">고양특례시청</span><span class="org">경기도교육청 남부연수원</span><span class="org">고양시장애인종합복지관</span><span class="org">광명시립하안노인종합복지관</span><span class="org">한국전력공사 인재개발원</span><span class="org">한국건설기술연구원</span><span class="org">서울아스트라자산운용</span><span class="org">양천구청</span><span class="org">서초구청</span><span class="org">여주시 농업기술센터</span><span class="org">화성시 농업기술센터</span>
+    </div>
+  </div>
+  <div class="marquee" data-reveal>
+    <div class="mq-track mq-b">
+      <span class="org">파주시문산종합사회복지관</span><span class="org">부천시장기요양요원지원센터</span><span class="org">부천시다문화가족지원센터</span><span class="org">부천시자원봉사센터</span><span class="org">소사본종합사회복지관</span><span class="org">소사중학교 AI동아리</span><span class="org">김포하나장애인자립생활센터</span><span class="org">부천 고두비페스티벌</span><span class="org">부천시 디딤돌 강사형스터디</span><span class="org">찾아가는 상상체험버스</span><span class="org">대학 연계 AI 정보화교육</span>
+      <span class="org">파주시문산종합사회복지관</span><span class="org">부천시장기요양요원지원센터</span><span class="org">부천시다문화가족지원센터</span><span class="org">부천시자원봉사센터</span><span class="org">소사본종합사회복지관</span><span class="org">소사중학교 AI동아리</span><span class="org">김포하나장애인자립생활센터</span><span class="org">부천 고두비페스티벌</span><span class="org">부천시 디딤돌 강사형스터디</span><span class="org">찾아가는 상상체험버스</span><span class="org">대학 연계 AI 정보화교육</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="photos">
+      <figure data-reveal>
+        <span class="ph"><img src="assets/field/yeoju-agri.jpg" alt="여주시 농업기술센터 강의 현장"></span>
+        <figcaption><b>여주시 농업기술센터</b>AI 활용 및 이해를 통한 영농 활동</figcaption>
+      </figure>
+      <figure data-reveal data-delay="1">
+        <span class="ph"><img src="assets/field/public-press.jpg" alt="공직자 대상 AI 보도자료 작성 실습 현장"></span>
+        <figcaption><b>공직자 대상 실습</b>AI를 활용한 보도자료 작성</figcaption>
+      </figure>
+      <figure data-reveal data-delay="2">
+        <span class="ph"><img src="assets/field/paju-senior.jpg" alt="시니어 대상 디지털 교육 현장"></span>
+        <figcaption><b>시니어 디지털 교육</b>AI와 함께하는 스마트한 디지털 생활</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 활동 -->
+<section class="sec sec-tint">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">소속 및 활동</span>
+      <h2>강의만 하지 않습니다</h2>
+      <p>교육 기획, 강사 양성, 협동조합 운영까지 함께 하고 있습니다.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card" data-reveal><span class="num">대표</span><h3>연하의서재</h3><p>맞춤형 교육 서비스 기획과 운영. 여성기업 인증 사업체입니다.</p></div>
+      <div class="card" data-reveal data-delay="1"><span class="num">이사</span><h3>한국강사교육협회</h3><p>강사 교육과 역량 개발 프로그램에 참여합니다.</p></div>
+      <div class="card" data-reveal><span class="num">전임강사</span><h3>미래교육아카데미</h3><p>공공기관·복지관 연계 교육을 전담합니다.</p></div>
+      <div class="card" data-reveal data-delay="1"><span class="num">이사</span><h3>배움숲협동조합</h3><p>지역 평생교육 사업을 함께 만들어 갑니다.</p></div>
+    </div>
+
+    <figure style="margin-top:34px; max-width:800px" data-reveal>
+      <span class="ph" style="aspect-ratio:16/9"><img src="assets/field/slide-sample.jpg" alt="직접 제작한 강의 슬라이드 예시"></span>
+      <figcaption><b>직접 만드는 강의 자료</b>비유와 그림으로 풀어내는 수업 자료를 매 강의마다 새로 제작합니다.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 저서 -->
+<section class="sec" id="books">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">출간 저서</span>
+      <h2>직접 쓰고, 직접 가르칩니다</h2>
+    </div>
+    <div class="grid g3">
+      <div class="book" data-reveal><span class="tag">AI 활용</span><h3>알기 쉬운 2025 AI 트렌드</h3><p>누구나 쉽게 이해하는 AI 트렌드와 실전 활용법</p></div>
+      <div class="book" data-reveal data-delay="1"><span class="tag">디지털 교육</span><h3>우리는 디지털튜터다</h3><p>디지털 시대 강사와 교육자를 위한 실전 가이드</p></div>
+      <div class="book" data-reveal data-delay="2"><span class="tag">시집</span><h3>어쩌다 쓰다보니 글이 모였어요</h3><p>AI 강사가 쓴 따뜻한 일상의 시 모음</p></div>
+    </div>
+    <!-- ✏️ 책 표지 사진이 있으면 각 카드 맨 위에 <img src="assets/books/파일명.jpg" alt=""> 를 넣어보세요 -->
+  </div>
+</section>
+
+<!-- 자격 · 수상 -->
+<section class="sec sec-tint" id="award">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">자격 · 수상</span>
+      <h2>공인된 전문성</h2>
+    </div>
+    <div class="grid g2" style="gap:48px; align-items:start">
+      <div data-reveal>
+        <h3 style="font-size:21px; margin-bottom:22px">수상 · 위촉</h3>
+        <ul class="timeline">
+          <li><span class="year">2025</span><p>국립특수교육원 상상체험버스 최우수강사상</p></li>
+          <li><span class="year">2025</span><p>부천여성인력개발 디딤돌 최우수동아리상</p></li>
+          <li><span class="year">2024</span><p>미래교육아카데미 우수강사상</p></li>
+          <li><span class="year">2024</span><p>투닝 교재 연구원 위촉</p></li>
+        </ul>
+      </div>
+      <div data-reveal data-delay="1">
+        <h3 style="font-size:21px; margin-bottom:22px">대표 자격증</h3>
+        <div class="certs">
+          <span class="cert">챗GPT 생성AI 교육전문가 1급</span>
+          <span class="cert">인터넷 윤리지도사 1급</span>
+          <span class="cert">메타버스 융합 전문 강사</span>
+        </div>
+        <p style="margin-top:20px; color:var(--ink-3); font-size:16px">
+          이 밖에 AI 관련 자격증 및 수료 10개 이상을 보유하고 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 교육 철학 -->
+<section class="quote">
+  <div class="wrap">
+    <blockquote data-reveal>AI가 어렵지 않도록, 누구에게나 쉽고 재미있게.</blockquote>
+    <cite data-reveal data-delay="1">연쌤 AI 연구소 · 연하의서재</cite>
+  </div>
+</section>
+
+<!-- 문의 -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="contact-box" data-reveal>
+      <img src="assets/avatar/yeonssam-fighting.png" alt="">
+      <h2>강의 문의를 환영합니다</h2>
+      <p>아래 버튼을 누르면 메일 앱이 열리고, 문의 양식이 자동으로 채워집니다. 내용을 채워 보내주세요.</p>
+      <div class="contact-btns">
+        <a class="btn btn-fill" href="mailto:digitalyeonssam@naver.com?subject=%5B%EA%B0%95%EC%9D%98%20%EB%AC%B8%EC%9D%98%5D%20%EA%B8%B0%EA%B4%80%EB%AA%85%EC%9D%84%20%EC%A0%81%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20%EC%97%B0%EC%8C%A4%20AI%20%EC%97%B0%EA%B5%AC%EC%86%8C%20%EA%B0%95%EC%9D%98%20%EB%AC%B8%EC%9D%98%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4.%0A%0A%E2%96%A0%20%EA%B8%B0%EA%B4%80/%EB%8B%A8%EC%B2%B4%EB%AA%85%20%3A%0A%E2%96%A0%20%EB%8B%B4%EB%8B%B9%EC%9E%90%20%EC%84%B1%ED%95%A8%20%3A%0A%E2%96%A0%20%EC%97%B0%EB%9D%BD%EC%B2%98%20%3A%0A%E2%96%A0%20%ED%9D%AC%EB%A7%9D%20%EC%9D%BC%EC%A0%95%20%3A%202026%EB%85%84%20%20%20%EC%9B%94%20%20%20%EC%9D%BC%20%28%20%20%20%EC%9A%94%EC%9D%BC%29%20%20%20%EC%8B%9C%20~%20%20%20%EC%8B%9C%0A%E2%96%A0%20%EA%B5%90%EC%9C%A1%20%EB%8C%80%EC%83%81%20%3A%20%28%EC%98%88%3A%20%EC%8B%9C%EB%8B%88%EC%96%B4%20/%20%EA%B3%B5%EC%A7%81%EC%9E%90%20/%20%EC%A7%81%EC%9E%A5%EC%9D%B8%20/%20%ED%95%99%EC%83%9D%29%0A%E2%96%A0%20%EC%98%88%EC%83%81%20%EC%9D%B8%EC%9B%90%20%3A%20%20%20%EB%AA%85%0A%E2%96%A0%20%ED%9D%AC%EB%A7%9D%20%EC%A3%BC%EC%A0%9C%20%3A%20%28%EC%98%88%3A%20%EC%83%9D%EC%84%B1%ED%98%95%20AI%20%EC%8B%A4%EC%A0%84%20/%20%EC%8B%9C%EB%8B%88%EC%96%B4%20%EB%94%94%EC%A7%80%ED%84%B8%20/%20AI%20%EB%B3%B4%EB%8F%84%EC%9E%90%EB%A3%8C%20%EC%9E%91%EC%84%B1%29%0A%E2%96%A0%20%EC%9E%A5%EC%86%8C%20%EB%B0%8F%20%EA%B8%B0%EC%9E%90%EC%9E%AC%20%3A%20%28%EC%98%88%3A%20%EA%B0%95%EC%9D%98%EC%8B%A4%2C%20%EB%B9%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%84%B0%2C%20%EA%B0%9C%EC%9D%B8%20%EB%85%B8%ED%8A%B8%EB%B6%81%20%EC%97%AC%EB%B6%80%29%0A%E2%96%A0%20%EA%B8%B0%ED%83%80%20%EC%9A%94%EC%B2%AD%EC%82%AC%ED%95%AD%20%3A%0A%0A%EA%B0%90%EC%82%AC%ED%95%A9%EB%8B%88%EB%8B%A4.">메일로 문의하기 <span class="arw">→</span></a>
+        <a class="btn btn-line" href="https://blog.naver.com/yeonailab" target="_blank" rel="noopener">블로그 방문하기</a>
+      </div>
+      <p class="mailline">메일 앱이 열리지 않으면 <a href="mailto:digitalyeonssam@naver.com">digitalyeonssam@naver.com</a> 으로 보내주세요.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 푸터 -->
+<footer>
+  <div class="wrap f-in">
+    <b>연쌤 AI 연구소 · 연하의서재</b>
+    <span>경기도 고양시 여성창업지원센터 입주기업 · 여성기업 인증</span>
+    <span><a href="mailto:digitalyeonssam@naver.com">digitalyeonssam@naver.com</a></span>
+    <span><a href="https://blog.naver.com/yeonailab" target="_blank" rel="noopener">네이버 블로그</a></span>
+    <span class="copy">© 2026 연하의서재. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- three.js로 히어로 배경에 '종이에 번지는 잉크'를 그립니다 -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 1. 화면에 들어오면 나타나기 
+     안전장치: 관찰이 실패하거나 브라우저가 지원하지 않으면 전부 그냥 보이게 합니다. */
+  var reveals = [].slice.call(document.querySelectorAll("[data-reveal]"));
+  function showAll(){ reveals.forEach(function(el){ el.classList.add("in"); }); }
+
+  if (reduce || !("IntersectionObserver" in window)) {
+    showAll();
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+    reveals.forEach(function(el){ io.observe(el); });
+    setTimeout(showAll, 3000);   // 어떤 이유로든 안 나타나면 강제로 보이게
+  }
+
+  /* 2. 숫자 올라가기 */
+  var counters = [].slice.call(document.querySelectorAll(".count"));
+  function runCount(el){
+    var to = parseInt(el.getAttribute("data-to"), 10) || 0;
+    if (reduce || to === 0) return;
+    var dur = 1400, t0 = null, done = false;
+
+    // 숫자는 사실이므로, 화면이 느려져 애니메이션이 끊기더라도
+    // 반드시 최종 값으로 끝나도록 보증합니다. (중간 숫자에서 멈추면 오해를 줍니다)
+    function finish(){ if (!done){ done = true; el.textContent = String(to); } }
+    setTimeout(finish, dur + 500);
+
+    function frame(t){
+      if (done) return;
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      el.textContent = String(Math.round(to * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(frame); else finish();
+    }
+    el.textContent = "0";
+    requestAnimationFrame(frame);
+  }
+  if (!reduce && "IntersectionObserver" in window){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ runCount(e.target); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+
+  /* 3. 상단 바 그림자 · 진행 막대 · 현재 위치 표시 */
+  var nav = document.getElementById("nav");
+  var bar = document.getElementById("progress");
+  var links = [].slice.call(document.querySelectorAll(".nav-links a"));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  var ticking = false;
+
+  function onScroll(){
+    var y = window.pageYOffset;
+    nav.classList.toggle("stuck", y > 8);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
+    var current = -1;
+    sections.forEach(function(s, i){
+      if (s && s.getBoundingClientRect().top <= 140) current = i;
+    });
+    links.forEach(function(a, i){ a.classList.toggle("active", i === current); });
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if (!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  /* 4. 히어로 배경: 종이에 번지는 잉크 (three.js) 
+     화면 전체를 덮는 사각형 하나에 셰이더로 직접 그립니다. 이미지 파일이 필요 없습니다.
+     "연하의서재" 와 시집을 낸 강사라는 점에서 가져온 모티프입니다.
+     ✏️ 잉크 색을 바꾸려면 아래 uInkA / uInkB 의 색 코드만 고치면 됩니다. */
+  (function(){
+    var canvas = document.getElementById("hero-canvas");
+    if (!canvas || typeof THREE === "undefined") return;
+
+    var renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    } catch (err) { return; }   // WebGL을 못 쓰는 기기면 조용히 넘어갑니다
+
+    var host = canvas.parentElement;
+    var scene = new THREE.Scene();
+    var camera = new THREE.Camera();          // 화면을 꽉 채우는 사각형이라 원근이 필요 없습니다
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    var VERT = [
+      "varying vec2 vUv;",
+      "void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }"
+    ].join("\n");
+
+    var FRAG = [
+      "precision highp float;",
+      "varying vec2 vUv;",
+      "uniform float uTime;",
+      "uniform float uAspect;",
+      "uniform vec2  uMouse;",
+      "uniform vec3  uInkA;",
+      "uniform vec3  uInkB;",
+
+      "float hash(vec2 p){",
+      "  p = fract(p * vec2(123.34, 456.21));",
+      "  p += dot(p, p + 45.32);",
+      "  return fract(p.x * p.y);",
+      "}",
+
+      "float noise(vec2 p){",
+      "  vec2 i = floor(p), f = fract(p);",
+      "  vec2 u = f * f * (3.0 - 2.0 * f);",
+      "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),",
+      "             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);",
+      "}",
+
+      "float fbm(vec2 p){",
+      "  float v = 0.0, a = 0.5;",
+      "  for (int i = 0; i < 5; i++){ v += a * noise(p); p *= 2.07; a *= 0.5; }",
+      "  return v;",
+      "}",
+
+      // 잉크가 멈춰 서는 경계선.
+      // 세 겹으로 흐트러뜨립니다 - 전체 윤곽 / 종이 결을 따라 뻗는 갈래 / 모세관을 타고 나간 가는 실.
+      "float front(vec2 p, vec2 c){",
+      "  float w1 = fbm(p * 2.8 + c * 13.0) - 0.5;",
+      "  float w2 = fbm(vec2(p.x * 8.0, p.y * 24.0) + c * 7.0) - 0.5;",
+      "  float w3 = fbm(p * 19.0 + c * 3.0) - 0.5;",
+      "  return length(p - c) + w1 * 0.105 + w2 * 0.058 + w3 * 0.024;",
+      "}",
+
+      // 잉크 한 방울. 본체 경계는 또렷하게, 그 바깥은 '젖은 종이' 로 옅게.
+      "void addDrop(vec2 p, vec2 c, float maxR, float phase, float speed, inout float ink, inout float wet){",
+      "  float g = fract(uTime * speed + phase);",
+      "  float e = 1.0 - pow(1.0 - g, 2.6);",
+      "  float r = maxR * e;",
+      "  float d = front(p, c);",
+      "  float fade = smoothstep(1.0, 0.68, g);",
+      "  float core = smoothstep(r, r - 0.034, d) * fade;",
+      "  float halo = smoothstep(r + 0.055, r - 0.008, d) * 0.30 * fade;",
+      "  ink = ink + core - ink * core;",
+      "  wet = wet + halo - wet * halo;",
+      "}",
+
+      "void main(){",
+      "  vec2 p = (vUv - 0.5) * vec2(uAspect, 1.0);",
+      "  p += uMouse * 0.045;",
+
+      "  float ink = 0.0;",
+      "  float wet = 0.0;",
+      "  addDrop(p, vec2( 0.34,  0.10), 0.20, 0.00, 0.019, ink, wet);",
+      "  addDrop(p, vec2( 0.58, -0.17), 0.17, 0.31, 0.015, ink, wet);",
+      "  addDrop(p, vec2( 0.20, -0.27), 0.14, 0.63, 0.022, ink, wet);",
+      "  addDrop(p, vec2( 0.73,  0.25), 0.15, 0.84, 0.017, ink, wet);",
+      "  addDrop(p, vec2( 0.47,  0.31), 0.12, 0.48, 0.013, ink, wet);",
+      "  addDrop(p, vec2( 0.87, -0.07), 0.13, 0.21, 0.025, ink, wet);",
+      "  addDrop(p, vec2( 0.63,  0.02), 0.11, 0.71, 0.020, ink, wet);",
+      "  addDrop(p, vec2( 0.27, -0.06), 0.10, 0.55, 0.026, ink, wet);",
+
+      // 종이 결 - 가로로 길게 늘여서, 잉크가 결을 따라 번져 보이게 합니다
+      "  float fiber = fbm(vec2(p.x * 26.0, p.y * 95.0));",
+      "  float grain = 0.78 + 0.22 * fiber;",
+
+      "  float density = clamp(ink + wet * 0.55, 0.0, 1.0);",
+      "  float a = density * grain * 0.42;",
+      "  vec3 col = mix(uInkA, uInkB, smoothstep(0.15, 0.85, ink));",
+
+      "  gl_FragColor = vec4(col, a);",
+      "}"
+    ].join("\n");
+
+    var uniforms = {
+      uTime:   { value: 0 },
+      uAspect: { value: 1 },
+      uMouse:  { value: new THREE.Vector2(0, 0) },
+      uInkA:   { value: new THREE.Color(0x4E8E6D) },   // 옅은 잉크
+      uInkB:   { value: new THREE.Color(0x14342A) }    // 깊은 잉크
+    };
+
+    scene.add(new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.ShaderMaterial({
+        vertexShader: VERT, fragmentShader: FRAG, uniforms: uniforms,
+        transparent: true, depthWrite: false, depthTest: false
+      })
+    ));
+
+    function resize(){
+      var w = host.clientWidth, h = host.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      uniforms.uAspect.value = w / h;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    var tx = 0, ty = 0;
+    if (!reduce){
+      host.addEventListener("pointermove", function(e){
+        var r = host.getBoundingClientRect();
+        tx = (e.clientX - r.left) / r.width - 0.5;
+        ty = (e.clientY - r.top) / r.height - 0.5;
+      });
+    }
+
+    var visible = true;
+    if ("IntersectionObserver" in window){
+      new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(host);
+    }
+
+    var t0 = performance.now();
+    function loop(){
+      requestAnimationFrame(loop);
+      if (!visible) return;
+      uniforms.uTime.value = (performance.now() - t0) / 1000;
+      uniforms.uMouse.value.x += (tx - uniforms.uMouse.value.x) * 0.04;
+      uniforms.uMouse.value.y += (ty - uniforms.uMouse.value.y) * 0.04;
+      renderer.render(scene, camera);
+    }
+
+    canvas.classList.add("ready");
+    if (reduce){ uniforms.uTime.value = 6.0; renderer.render(scene, camera); }  // 움직임 없이 한 장만
+    else loop();
+  })();
+})();
+</script>
+
+</body>
+</html>
