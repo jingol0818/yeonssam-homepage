@@ -231,25 +231,43 @@ img{max-width:100%; display:block}
 @media(max-width:1000px){ .g3,.g5{grid-template-columns:repeat(2,1fr)} }
 @media(max-width:640px){ .g2,.g3,.g5{grid-template-columns:1fr} }
 
-.card{
-  position:relative; background:var(--white); border:1px solid var(--line);
-  border-radius:var(--r-card); padding:30px 26px 28px;
-  display:flex; flex-direction:column; gap:10px; overflow:hidden;
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+/* 강의 분야: 박스로 가두지 않고 얇은 선으로만 구획합니다 */
+.fields{display:grid; grid-template-columns:repeat(3,1fr); column-gap:38px; row-gap:0}
+@media(max-width:1000px){ .fields{grid-template-columns:repeat(2,1fr); column-gap:30px} }
+@media(max-width:640px){ .fields{grid-template-columns:1fr} }
+.fld{
+  padding:30px 0; border-top:1px solid var(--line);
+  display:flex; flex-direction:column; gap:9px;
+  transition:border-top-color .4s var(--ease);
 }
-.card::before{
-  content:""; position:absolute; top:0; left:0; right:0; height:3px;
-  background:var(--g60); transform:scaleX(0); transform-origin:left;
-  transition:transform .45s var(--ease);
-}
-.card:hover{transform:translateY(-4px); border-color:var(--g40); box-shadow:var(--shadow-2)}
-.card:hover::before{transform:scaleX(1)}
-.card h3{font-size:19.5px; font-weight:700}
-.card p{font-size:16px; color:var(--ink-3); line-height:1.75}
-.card .num{font-family:"Pretendard Variable",Pretendard,sans-serif; font-size:13px; font-weight:600; letter-spacing:.1em; color:var(--g60)}
+.fld:hover{border-top-color:var(--g60)}
+.fld .num{font-size:12.5px; font-weight:600; letter-spacing:.13em; color:var(--g60)}
+.fld h3{font-size:19.5px; font-weight:700}
+.fld p{font-size:15.5px; color:var(--ink-3); line-height:1.75}
 
-.chip-card{padding:22px 18px; text-align:center}
-.chip-card h3{font-size:17px}
+/* 강의 대상: 카드가 아니라 알약 하나씩 */
+.targets{display:flex; flex-wrap:wrap; gap:11px}
+.tg{
+  background:var(--white); border:1px solid var(--line); border-radius:999px;
+  padding:13px 24px; font-size:16.5px; color:var(--ink-2); font-weight:500;
+  transition:border-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+}
+.tg:hover{border-color:var(--g60); color:var(--g95); transform:translateY(-2px)}
+
+/* 소속 및 활동: 왼쪽에 역할 배지를 둔 목록 */
+.roles-list{display:grid; grid-template-columns:repeat(2,1fr); gap:0 44px}
+@media(max-width:720px){ .roles-list{grid-template-columns:1fr} }
+.rl{
+  display:grid; grid-template-columns:62px 1fr; gap:18px; align-items:start;
+  padding:24px 0; border-bottom:1px solid var(--line);
+}
+.rl .r{
+  font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--g80);
+  background:var(--g10); border-radius:5px; padding:5px 0; text-align:center;
+  margin-top:4px;
+}
+.rl h3{font-size:19px; font-weight:700; margin-bottom:3px}
+.rl p{font-size:15.5px; color:var(--ink-3); line-height:1.7}
 
 /* 블로그 최신 글 */
 .posts{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
@@ -308,27 +326,48 @@ figure:hover .ph img{transform:scale(1.07)}
 figcaption{padding:16px 20px 20px; font-size:15px; color:var(--ink-3); line-height:1.6}
 figcaption b{display:block; color:var(--ink); font-size:16px; font-weight:600; margin-bottom:3px}
 
-/* 저서 */
-.book{
-  position:relative; background:var(--white); border:1px solid var(--line);
-  border-left:5px solid var(--warm); border-radius:6px var(--r-card) var(--r-card) 6px;
-  padding:28px 26px; display:flex; flex-direction:column; gap:11px;
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+/* 저서: 책등이 보이는 책장. 마우스를 올리면 책이 살짝 뽑혀 나옵니다 */
+.shelf{position:relative; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; padding-bottom:16px}
+@media(max-width:900px){ .shelf{grid-template-columns:1fr; gap:18px} }
+.shelf::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:3px; border-radius:3px;
+  background:linear-gradient(90deg, var(--g20), var(--g40) 50%, var(--g20));
 }
-.book:hover{transform:translateY(-4px) rotate(-.4deg); box-shadow:var(--shadow-2)}
-.book .tag{align-self:flex-start; background:var(--warm-bg); color:var(--warm); font-size:13px; font-weight:600; padding:5px 14px; border-radius:999px}
-.book h3{font-size:20.5px; font-weight:700}
-.book p{font-size:16px; color:var(--ink-3)}
+.bk{
+  display:flex; min-height:212px; background:var(--white);
+  border-radius:3px 13px 13px 3px;
+  box-shadow:0 1px 3px rgba(20,52,42,.08), 0 18px 34px -24px rgba(20,52,42,.55);
+  transform-origin:bottom center;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.bk:hover{transform:translateY(-14px) rotate(-1.1deg); box-shadow:0 1px 3px rgba(20,52,42,.08), 0 34px 46px -26px rgba(20,52,42,.6)}
+.bk .spine{
+  flex:none; width:42px; border-radius:3px 0 0 3px; position:relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.bk .spine span{
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-size:12.5px; letter-spacing:.16em; font-weight:600; color:#fff;
+}
+.bk .spine::after{content:""; position:absolute; right:0; top:10px; bottom:10px; width:1px; background:rgba(255,255,255,.34)}
+.bk .face{padding:28px 26px; display:flex; flex-direction:column; gap:11px; justify-content:center}
+.bk h3{font-size:21px; font-weight:700; line-height:1.45}
+.bk p{font-size:15.5px; color:var(--ink-3); line-height:1.7}
 
 /* 타임라인 */
-.timeline{list-style:none; border-left:2px solid var(--g20); padding-left:28px; display:flex; flex-direction:column; gap:24px}
+/* 세로선과 동그라미의 중심을 같은 x좌표(7px)에 맞춥니다.
+   테두리 두께가 width 에 포함되도록 box-sizing 을 border-box 로 둔 것이 핵심입니다. */
+.timeline{list-style:none; position:relative; padding-left:34px; display:flex; flex-direction:column; gap:26px}
+.timeline::before{content:""; position:absolute; left:6px; top:8px; bottom:8px; width:2px; background:var(--g20); border-radius:2px}
 .timeline li{position:relative}
 .timeline li::before{
-  content:""; position:absolute; left:-35px; top:11px; width:12px; height:12px;
-  border-radius:50%; background:var(--white); border:3px solid var(--g60);
+  content:""; position:absolute; left:0; top:10px; width:14px; height:14px;
+  box-sizing:border-box; border-radius:50%;
+  background:var(--white); border:2px solid var(--g60);
   transition:transform .3s var(--ease), background .3s var(--ease);
 }
-.timeline li:hover::before{transform:scale(1.35); background:var(--g60)}
+.timeline li:hover::before{transform:scale(1.25); background:var(--g60)}
+.timeline .year{display:block; line-height:1.5}
 .timeline .year{font-family:"Pretendard Variable",Pretendard,sans-serif; font-size:14px; font-weight:700; color:var(--g80); letter-spacing:.06em}
 .timeline p{font-size:17px; color:var(--ink)}
 
@@ -503,24 +542,24 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
       <h2>이런 교육을 합니다</h2>
       <p>기관의 목적과 대상에 맞춰 커리큘럼을 새로 짜서 진행합니다.</p>
     </div>
-    <div class="grid g3">
-      <div class="card" data-reveal><span class="num">생성형 AI</span><h3>ChatGPT · Gemini · Claude 실습</h3><p>업무와 일상에 바로 적용하는 실전 교육. 따라 하면 그 자리에서 결과물이 나옵니다.</p></div>
-      <div class="card" data-reveal data-delay="1"><span class="num">시니어</span><h3>시니어 인지건강 × AI</h3><p>어르신 눈높이에 맞춘 디지털·AI 활용 교육. 스마트폰 안전 사용까지 함께 다룹니다.</p></div>
-      <div class="card" data-reveal data-delay="2"><span class="num">공공기관</span><h3>지자체 맞춤 AI 교육</h3><p>AI 보도자료 작성, 업무 자동화 등 기관 업무에 맞춘 커리큘럼을 설계합니다.</p></div>
-      <div class="card" data-reveal><span class="num">메타버스</span><h3>메타버스 융합 교육</h3><p>AI와 메타버스를 결합한 미래교육 콘텐츠를 직접 만들어 봅니다.</p></div>
-      <div class="card" data-reveal data-delay="1"><span class="num">인문학</span><h3>AI 독서 · 창작 클래스</h3><p>AI를 활용한 글쓰기와 독서. 기술이 아니라 표현을 배우는 수업입니다.</p></div>
-      <div class="card" data-reveal data-delay="2"><span class="num">강사 양성</span><h3>디지털 튜터 · 시니어 리더 양성</h3><p>배운 것을 다른 사람에게 다시 알려줄 수 있게. 가르치는 사람을 기르는 과정입니다.</p></div>
+    <div class="fields">
+      <div class="fld" data-reveal><span class="num">생성형 AI</span><h3>ChatGPT · Gemini · Claude 실습</h3><p>업무와 일상에 바로 적용하는 실전 교육. 따라 하면 그 자리에서 결과물이 나옵니다.</p></div>
+      <div class="fld" data-reveal data-delay="1"><span class="num">시니어</span><h3>시니어 인지건강 × AI</h3><p>어르신 눈높이에 맞춘 디지털·AI 활용 교육. 스마트폰 안전 사용까지 함께 다룹니다.</p></div>
+      <div class="fld" data-reveal data-delay="2"><span class="num">공공기관</span><h3>지자체 맞춤 AI 교육</h3><p>AI 보도자료 작성, 업무 자동화 등 기관 업무에 맞춘 커리큘럼을 설계합니다.</p></div>
+      <div class="fld" data-reveal><span class="num">메타버스</span><h3>메타버스 융합 교육</h3><p>AI와 메타버스를 결합한 미래교육 콘텐츠를 직접 만들어 봅니다.</p></div>
+      <div class="fld" data-reveal data-delay="1"><span class="num">인문학</span><h3>AI 독서 · 창작 클래스</h3><p>AI를 활용한 글쓰기와 독서. 기술이 아니라 표현을 배우는 수업입니다.</p></div>
+      <div class="fld" data-reveal data-delay="2"><span class="num">강사 양성</span><h3>디지털 튜터 · 시니어 리더 양성</h3><p>배운 것을 다른 사람에게 다시 알려줄 수 있게. 가르치는 사람을 기르는 과정입니다.</p></div>
     </div>
 
     <div class="sec-head" style="margin-top:64px; margin-bottom:24px" data-reveal>
       <h2 style="font-size:25px">강의 대상</h2>
     </div>
-    <div class="grid g5">
-      <div class="card chip-card" data-reveal><h3>공공기관 · 지자체</h3></div>
-      <div class="card chip-card" data-reveal data-delay="1"><h3>시니어 · 어르신</h3></div>
-      <div class="card chip-card" data-reveal data-delay="2"><h3>직장인 · 일반인</h3></div>
-      <div class="card chip-card" data-reveal data-delay="3"><h3>학교 · 교육기관</h3></div>
-      <div class="card chip-card" data-reveal data-delay="4"><h3>복지관 · 단체</h3></div>
+    <div class="targets" data-reveal>
+      <span class="tg">공공기관 · 지자체</span>
+      <span class="tg">시니어 · 어르신</span>
+      <span class="tg">직장인 · 일반인</span>
+      <span class="tg">학교 · 교육기관</span>
+      <span class="tg">복지관 · 단체</span>
     </div>
   </div>
 </section>
@@ -576,11 +615,11 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
       <h2>강의만 하지 않습니다</h2>
       <p>교육 기획, 강사 양성, 협동조합 운영까지 함께 하고 있습니다.</p>
     </div>
-    <div class="grid g2">
-      <div class="card" data-reveal><span class="num">대표</span><h3>연하의서재</h3><p>맞춤형 교육 서비스 기획과 운영. 여성기업 인증 사업체입니다.</p></div>
-      <div class="card" data-reveal data-delay="1"><span class="num">이사</span><h3>한국강사교육협회</h3><p>강사 교육과 역량 개발 프로그램에 참여합니다.</p></div>
-      <div class="card" data-reveal><span class="num">전임강사</span><h3>미래교육아카데미</h3><p>공공기관·복지관 연계 교육을 전담합니다.</p></div>
-      <div class="card" data-reveal data-delay="1"><span class="num">이사</span><h3>배움숲협동조합</h3><p>지역 평생교육 사업을 함께 만들어 갑니다.</p></div>
+    <div class="roles-list">
+      <div class="rl" data-reveal><span class="r">대표</span><div><h3>연하의서재</h3><p>맞춤형 교육 서비스 기획과 운영. 여성기업 인증 사업체입니다.</p></div></div>
+      <div class="rl" data-reveal data-delay="1"><span class="r">이사</span><div><h3>한국강사교육협회</h3><p>강사 교육과 역량 개발 프로그램에 참여합니다.</p></div></div>
+      <div class="rl" data-reveal><span class="r">전임강사</span><div><h3>미래교육아카데미</h3><p>공공기관·복지관 연계 교육을 전담합니다.</p></div></div>
+      <div class="rl" data-reveal data-delay="1"><span class="r">이사</span><div><h3>배움숲협동조합</h3><p>지역 평생교육 사업을 함께 만들어 갑니다.</p></div></div>
     </div>
 
     <figure style="margin-top:34px; max-width:800px" data-reveal>
@@ -597,10 +636,19 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
       <span class="eyebrow">출간 저서</span>
       <h2>직접 쓰고, 직접 가르칩니다</h2>
     </div>
-    <div class="grid g3">
-      <div class="book" data-reveal><span class="tag">AI 활용</span><h3>알기 쉬운 2025 AI 트렌드</h3><p>누구나 쉽게 이해하는 AI 트렌드와 실전 활용법</p></div>
-      <div class="book" data-reveal data-delay="1"><span class="tag">디지털 교육</span><h3>우리는 디지털튜터다</h3><p>디지털 시대 강사와 교육자를 위한 실전 가이드</p></div>
-      <div class="book" data-reveal data-delay="2"><span class="tag">시집</span><h3>어쩌다 쓰다보니 글이 모였어요</h3><p>AI 강사가 쓴 따뜻한 일상의 시 모음</p></div>
+    <div class="shelf">
+      <article class="bk" data-reveal>
+        <div class="spine" style="background:var(--g80)"><span>AI 활용</span></div>
+        <div class="face"><h3>알기 쉬운<br>2025 AI 트렌드</h3><p>누구나 쉽게 이해하는 AI 트렌드와 실전 활용법</p></div>
+      </article>
+      <article class="bk" data-reveal data-delay="1">
+        <div class="spine" style="background:var(--g60)"><span>디지털 교육</span></div>
+        <div class="face"><h3>우리는<br>디지털튜터다</h3><p>디지털 시대 강사와 교육자를 위한 실전 가이드</p></div>
+      </article>
+      <article class="bk" data-reveal data-delay="2">
+        <div class="spine" style="background:var(--warm)"><span>시집</span></div>
+        <div class="face"><h3>어쩌다 쓰다보니<br>글이 모였어요</h3><p>AI 강사가 쓴 따뜻한 일상의 시 모음</p></div>
+      </article>
     </div>
     <!-- ✏️ 책 표지 사진이 있으면 각 카드 맨 위에 <img src="assets/books/파일명.jpg" alt=""> 를 넣어보세요 -->
   </div>
@@ -768,7 +816,11 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
     var host = canvas.parentElement;
     var scene = new THREE.Scene();
     var camera = new THREE.Camera();          // 화면을 꽉 채우는 사각형이라 원근이 필요 없습니다
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // 잉크는 경계가 부드러운 그림이라 실제 화면보다 낮은 해상도로 그려도 차이가 안 보입니다.
+    // 화면 픽셀 그대로 그리면 스크롤이 버벅이므로 가로·세로를 0.6배로 그린 뒤 CSS로 늘립니다.
+    // (픽셀 수가 약 3분의 1로 줄어듭니다)
+    var DRAW_SCALE = 0.6;
+    renderer.setPixelRatio(1);
 
     var VERT = [
       "varying vec2 vUv;",
@@ -799,7 +851,7 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
 
       "float fbm(vec2 p){",
       "  float v = 0.0, a = 0.5;",
-      "  for (int i = 0; i < 5; i++){ v += a * noise(p); p *= 2.07; a *= 0.5; }",
+      "  for (int i = 0; i < 3; i++){ v += a * noise(p); p *= 2.07; a *= 0.5; }",
       "  return v;",
       "}",
 
@@ -831,14 +883,12 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
 
       "  float ink = 0.0;",
       "  float wet = 0.0;",
-      "  addDrop(p, vec2( 0.34,  0.10), 0.20, 0.00, 0.019, ink, wet);",
-      "  addDrop(p, vec2( 0.58, -0.17), 0.17, 0.31, 0.015, ink, wet);",
-      "  addDrop(p, vec2( 0.20, -0.27), 0.14, 0.63, 0.022, ink, wet);",
-      "  addDrop(p, vec2( 0.73,  0.25), 0.15, 0.84, 0.017, ink, wet);",
-      "  addDrop(p, vec2( 0.47,  0.31), 0.12, 0.48, 0.013, ink, wet);",
+      "  addDrop(p, vec2( 0.34,  0.10), 0.21, 0.00, 0.019, ink, wet);",
+      "  addDrop(p, vec2( 0.58, -0.17), 0.18, 0.31, 0.015, ink, wet);",
+      "  addDrop(p, vec2( 0.20, -0.27), 0.15, 0.63, 0.022, ink, wet);",
+      "  addDrop(p, vec2( 0.73,  0.25), 0.16, 0.84, 0.017, ink, wet);",
       "  addDrop(p, vec2( 0.87, -0.07), 0.13, 0.21, 0.025, ink, wet);",
-      "  addDrop(p, vec2( 0.63,  0.02), 0.11, 0.71, 0.020, ink, wet);",
-      "  addDrop(p, vec2( 0.27, -0.06), 0.10, 0.55, 0.026, ink, wet);",
+      "  addDrop(p, vec2( 0.47,  0.31), 0.12, 0.48, 0.013, ink, wet);",
 
       // 종이 결 - 가로로 길게 늘여서, 잉크가 결을 따라 번져 보이게 합니다
       "  float fiber = fbm(vec2(p.x * 26.0, p.y * 95.0));",
@@ -871,7 +921,9 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
     function resize(){
       var w = host.clientWidth, h = host.clientHeight;
       if (!w || !h) return;
-      renderer.setSize(w, h, false);
+      // 세 번째 인자 false = 캔버스의 CSS 크기는 건드리지 않습니다.
+      // CSS 에서 inset:0 으로 히어로를 꽉 채우고 있으므로, 작게 그린 그림이 자동으로 늘어납니다.
+      renderer.setSize(Math.round(w * DRAW_SCALE), Math.round(h * DRAW_SCALE), false);
       uniforms.uAspect.value = w / h;
     }
     resize();
@@ -891,11 +943,14 @@ footer .copy{width:100%; color:#7A9689; font-size:13.5px; margin-top:12px}
       new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(host);
     }
 
-    var t0 = performance.now();
-    function loop(){
+    // 아주 천천히 번지는 그림이라 초당 30장이면 충분합니다. 나머지 프레임은 브라우저에 돌려줍니다.
+    var t0 = performance.now(), last = 0, MIN_DT = 1000 / 30;
+    function loop(now){
       requestAnimationFrame(loop);
       if (!visible) return;
-      uniforms.uTime.value = (performance.now() - t0) / 1000;
+      if (now - last < MIN_DT) return;
+      last = now;
+      uniforms.uTime.value = (now - t0) / 1000;
       uniforms.uMouse.value.x += (tx - uniforms.uMouse.value.x) * 0.04;
       uniforms.uMouse.value.y += (ty - uniforms.uMouse.value.y) * 0.04;
       renderer.render(scene, camera);
