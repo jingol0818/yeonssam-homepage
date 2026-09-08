@@ -14,6 +14,7 @@
 | 내 GitHub으로 가져오고 싶다 | 3번 |
 | AI와 함께 계속 고치고 싶다 | 4번 |
 | 글자·사진만 바꾸고 싶다 | 5번 |
+| 저서 표지를 넣고 싶다 | 5번 |
 | 바꾼 걸 인터넷에 올리고 싶다 | 6번 |
 | 내 도메인을 붙이고 싶다 | 7번 |
 
@@ -209,9 +210,13 @@ AI에게 그냥 "예쁘게 고쳐줘"라고 하면 **십중팔구 디자인이 �
 
 ```
 assets/books/ 에 book1.jpg, book2.jpg, book3.jpg 를 넣었어.
-책장 카드(.bk)의 face 안쪽 맨 위에 표지 이미지를 넣어줘.
-책등(spine)과 제목은 그대로 두고, 표지가 세로 비율로 잘리지 않게 해줘.
+저서 카드 세 개의 .face 안에서 h3 와 p 를 <div class="txt"> 로 감싸고,
+그 앞에 <img class="cover"> 로 표지를 넣어줘.
+.cover 는 가로 86px, aspect-ratio 2/3, object-fit:cover 로.
+책등(spine)은 그대로 두고, 화면이 좁아지면 표지가 제목 위로 쌓이게 해줘.
 ```
+
+손으로 직접 하는 방법은 5번 '저서 표지 넣기'에 단계별로 적어 두었습니다.
 
 **섹션 추가**
 
@@ -272,6 +277,86 @@ GitHub에 올린 뒤라면 저장소의 **History**에서 예전 버전을 언�
 
 `todo`를 지우면 점선이 사라지고 다른 카드와 똑같아집니다.
 숫자를 안 넣기로 했다면 이 `<div>` 한 줄을 통째로 지우면 3칸이 됩니다.
+
+
+### 저서 표지 넣기
+
+지금 저서 카드는 글자만 있습니다. **표지를 넣으면 체감 완성도가 가장 크게 올라가는 자리입니다.**
+
+#### 1단계. 표지 파일 준비
+
+- `assets` 폴더 안에 `books` 라는 폴더를 새로 만듭니다
+- 표지 3장을 `book1.jpg`, `book2.jpg`, `book3.jpg` 라는 이름으로 넣습니다
+- 사진으로 찍을 때는 책을 **정면에서, 그림자 없이, 흰 종이 위에** 놓고 찍은 뒤
+  표지만 꽉 차게 잘라주세요
+- 가로 400px 정도면 충분합니다. 한 장 200KB 이하로 줄여주세요.
+  너무 크면 사이트가 느려집니다
+
+#### 2단계. CSS 한 덩어리 붙여넣기
+
+`index.html` 에서 `Ctrl + F` 로 **`.bk p{`** 를 찾아, 그 줄 **바로 아래**에 붙여넣습니다.
+
+```css
+/* 저서 표지 */
+.bk .face{flex-direction:row; align-items:center; gap:18px}
+.bk .cover{
+  flex:none; width:86px; aspect-ratio:2 / 3; object-fit:cover;
+  border-radius:2px 4px 4px 2px; background:var(--g10);
+  box-shadow:0 1px 2px rgba(20,52,42,.18), 0 8px 16px -9px rgba(20,52,42,.55);
+}
+.bk .txt{display:flex; flex-direction:column; gap:9px; min-width:0}
+@media(max-width:1080px){
+  .bk .face{flex-direction:column; align-items:flex-start}
+  .bk .cover{width:74px}
+}
+```
+
+#### 3단계. 카드 세 개 고치기
+
+`Ctrl + F` 로 **`class="face"`** 를 찾습니다. 세 군데 나옵니다.
+
+**바꾸기 전** (첫 번째 카드)
+
+```html
+<div class="face"><h3>알기 쉬운<br>2025 AI 트렌드</h3><p>누구나 쉽게 이해하는 AI 트렌드와 실전 활용법</p></div>
+```
+
+**바꾼 뒤**
+
+```html
+<div class="face">
+  <img class="cover" src="assets/books/book1.jpg" alt="알기 쉬운 2025 AI 트렌드 표지">
+  <div class="txt">
+    <h3>알기 쉬운<br>2025 AI 트렌드</h3>
+    <p>누구나 쉽게 이해하는 AI 트렌드와 실전 활용법</p>
+  </div>
+</div>
+```
+
+하는 일은 두 가지뿐입니다.
+
+1. 원래 있던 `<h3>...</h3><p>...</p>` 를 `<div class="txt">` 로 감쌉니다
+2. 그 앞에 `<img class="cover">` 한 줄을 넣습니다
+
+두 번째 카드는 `book2.jpg`, 세 번째 카드는 `book3.jpg` 로 파일명만 바꿔주세요.
+`alt` 에는 책 제목을 적습니다. 화면을 읽어주는 프로그램이 이 글자를 읽습니다.
+
+#### 표지가 한두 권만 있을 때
+
+없는 카드는 `<img class="cover">` **줄만 빼면** 됩니다. 나머지는 그대로 두세요.
+레이아웃은 깨지지 않습니다.
+
+#### 4단계. 확인
+
+`index.html` 을 더블클릭해서 저서 섹션을 봅니다.
+
+- 표지가 **X 표시로 깨지지 않는지.** 깨졌다면 파일명을 확인하세요.
+  `book1.JPG` 와 `book1.jpg` 는 다른 파일로 취급됩니다
+- 제목이 잘리지 않는지
+- 창을 좁혔을 때 표지가 제목 **위로 쌓이는지.** 화면이 1080px보다 좁으면
+  나란히가 아니라 위아래로 배치됩니다. 정상입니다
+
+다 되면 6번을 보고 GitHub에 올리면 끝입니다.
 
 ---
 
